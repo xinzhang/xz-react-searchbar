@@ -13,10 +13,14 @@ function getTheme() {
     name: process.env.REACT_APP_PRODUCT_NAME,
 
     // Base colors
-    primary: '#f36241',
-    secondary: '#000000',
+    primary: '#40a2db',
+    secondary: '#ffffff',
+    tertiary: '#e35455',
 
+    backgroundImage: '#70cbff',
     backgroundPrimary: '#1f2f37',
+    backgroundSecondary: '#031a25',
+    backgroundTertiary: '#293940',
 
     primaryActive: '#0f77b3',
 

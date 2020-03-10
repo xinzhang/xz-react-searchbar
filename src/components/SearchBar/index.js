@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import screen from 'styles/helpers/media';
 import { ReactComponent as Icon } from './icons/search-icon.svg';
 
+import AutoComplete from './Autocomplete';
+
 const mobileHeight = '55px';
 const desktopHeight = '60px';
 
@@ -17,6 +19,7 @@ const Wrapper = styled.div`
   transition: border-color ease 0.2s;
   display: flex;
   align-items: center;
+  z-index: 2;
   background: ${(props) => props.theme.backgroundPrimary};
   height: ${mobileHeight};
   ${screen.md} {
@@ -41,8 +44,51 @@ const StyledInput = styled.input`
   font-size: 18px;
   width: 100%;
   color: #fff;
+  opacity: 0.8;
   &::placeholder {
     opacity: 0.5;
+  }
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Submit = styled.button`
+  appearance: none;
+  background: none;
+  border: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 1.2px;
+  padding: 10px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.25s ease;
+
+  display: none;
+  ${screen.md} {
+    display: block;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+
+  &[disabled] {
+    opacity: 0;
+    cursor: not-allowed;
   }
 `;
 
@@ -60,26 +106,56 @@ class SearchBar extends React.Component {
     super(props);
     this.state = {
       focused: false,
+      showDropdown: false,
+      searchValue: '',
     };
   }
 
+  handleAutoCompleteClick = (term) => {
+    console.log(term);
+    this.setState({
+      showDropdown: false,
+      searchValue: term,
+    });
+  };
+
   render() {
-    const { focused } = this.state;
+    const { focused, showDropdown, searchValue } = this.state;
+    console.log('render', searchValue);
     return (
-      <Wrapper>
-        <Slide focused={focused}>
-          <SearchIcon />
-          <StyledInput
-            placeholder={SEARCH_INPUT_DESCRIPTION}
-            onFocus={() =>
-              this.setState({
-                focused: true,
-              })
-            }
-            onBlur={() => this.setState({ focused: false })}
+      <>
+        <Wrapper>
+          <Slide focused={focused}>
+            <SearchIcon />
+            <StyledInput
+              value={searchValue}
+              type="search"
+              placeholder={SEARCH_INPUT_DESCRIPTION}
+              onFocus={() =>
+                this.setState({
+                  focused: true,
+                })
+              }
+              onBlur={() => this.setState({ focused: false })}
+              onChange={(e) =>
+                this.setState({
+                  searchValue: e.target.value,
+                  showDropdown: true,
+                })
+              }
+            />
+          </Slide>
+          <Submit type="submit" disabled={!searchValue}>
+            Submit
+          </Submit>
+        </Wrapper>
+        {showDropdown && (
+          <AutoComplete
+            searchTerm={searchValue}
+            onClick={this.handleAutoCompleteClick}
           />
-        </Slide>
-      </Wrapper>
+        )}
+      </>
     );
   }
 }

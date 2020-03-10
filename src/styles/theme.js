@@ -25,6 +25,11 @@ function getTheme() {
 
     primaryText: 'rgba(0, 0, 0, 1)',
     secondaryText: 'rgba(255, 255, 255, 0.7)',
+
+    // gradient
+    gradient: 'rgba(241, 241, 241, 0), rgba(0, 0, 0, 0.3)',
+    backgroundGradient:
+      'linear-gradient(45deg, rgba(2, 0, 36, 1) 70%, rgba(31, 84, 115, 1) 100%)',
   };
 }
 

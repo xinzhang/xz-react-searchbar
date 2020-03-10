@@ -2,13 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
-  background-color: #282c34;
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
+  min-height: 40px;
   flex-direction: row;
   align-items: center;
   vertical-align: middle;
   justify-content: space-between;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(14px + 2vmin);
   color: white;
 `;
 

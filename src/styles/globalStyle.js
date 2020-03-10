@@ -13,5 +13,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    background-image: ${(props) => props.theme.backgroundGradient};
   }
 `;

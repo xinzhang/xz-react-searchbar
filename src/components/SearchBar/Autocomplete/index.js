@@ -3,14 +3,8 @@ import debounceRender from 'react-debounce-render';
 import styled from 'styled-components';
 import rgba from 'styles/helpers/rgba';
 import AutocompleteItem from 'components/SearchBar/AutocompleteItem';
-
-const mockedSuggestions = [
-  'australia',
-  'nicole kidman',
-  'morgan freeman',
-  'terminiator',
-  'aliens',
-];
+import { searchMovies } from 'api/omdbApi';
+import { get } from 'lodash';
 
 const StyledUL = styled.ul`
   padding: 32px 0 0 16px;
@@ -33,12 +27,8 @@ function Autocomplete({ searchTerm, onClick }) {
 
   useEffect(() => {
     async function fetchSuggestions() {
-      //const res = await getSearchSuggestions(searchTerm);
-      //setSuggestions(get(res, 'data.searchSuggestions', []));
-      setTimeout(() => {
-        console.log('set suggestions');
-        setSuggestions(mockedSuggestions);
-      }, 1000);
+      const res = await searchMovies(searchTerm);
+      setSuggestions(get(res, 'data.Search', []).map((x) => x.Title));
     }
 
     if (searchTerm.length >= 3) {

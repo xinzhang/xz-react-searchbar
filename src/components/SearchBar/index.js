@@ -112,7 +112,6 @@ class SearchBar extends React.Component {
   }
 
   handleAutoCompleteClick = (term) => {
-    console.log(term);
     this.setState({
       showDropdown: false,
       searchValue: term,

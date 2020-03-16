@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import screen from 'styles/helpers/media';
 import { ReactComponent as Icon } from './icons/search-icon.svg';
-import { fetchSearchMovies } from 'store/actions';
+import { fetchSearchMovies, searchEntered } from 'store/actions';
 import { connect } from 'react-redux';
 
 import AutoComplete from './Autocomplete';
@@ -10,12 +10,17 @@ import AutoComplete from './Autocomplete';
 const mobileHeight = '55px';
 const desktopHeight = '60px';
 
+const StyledDiv = styled.div`
+  display: 'relative';
+  margin: 4px auto;
+`;
+
 const Wrapper = styled.div`
   width: 80vw;
   border-radius: 30px;
   border: solid 1px;
   padding: 0px 20px;
-  margin: 20px;
+  margin: 20px auto;
   overflow: hidden;
   position: relative;
   transition: border-color ease 0.2s;
@@ -23,7 +28,10 @@ const Wrapper = styled.div`
   align-items: center;
   z-index: 2;
   background: ${(props) => props.theme.backgroundPrimary};
-  height: ${desktopHeight};
+  height: ${mobileHeight};
+  ${screen.md} {
+    height: ${desktopHeight};
+  }
 `;
 
 const Slide = styled.div`
@@ -119,6 +127,7 @@ class SearchBar extends React.Component {
 
   handleSubmitClick = () => {
     this.setState({ showDropdown: false });
+    this.props.dispatch(searchEntered(this.state.searchValue));
     this.props.dispatch(fetchSearchMovies(this.state.searchValue));
   };
 
@@ -133,7 +142,7 @@ class SearchBar extends React.Component {
     const { focused, showDropdown, searchValue } = this.state;
 
     return (
-      <>
+      <StyledDiv>
         <Wrapper>
           <Slide focused={focused}>
             <SearchIcon />
@@ -169,7 +178,7 @@ class SearchBar extends React.Component {
             onClick={this.handleAutoCompleteClick}
           />
         )}
-      </>
+      </StyledDiv>
     );
   }
 }

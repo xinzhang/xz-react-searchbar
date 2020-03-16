@@ -4,6 +4,7 @@ export default createGlobalStyle`
 html,
 body {
   height: 100%;
+  min-height: 100%;
 }
   body {
     color: ${(props) => (props.whiteColor ? 'white' : 'black')};
@@ -12,7 +13,6 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    background-image: ${(props) => props.theme.backgroundGradient};
+    overflow-x: hidden;        
   }
 `;

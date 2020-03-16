@@ -8,7 +8,7 @@ import { get } from 'lodash';
 
 const StyledUL = styled.ul`
   padding: 32px 0 0 16px;
-  margin: -50px 20px 0 20px;
+  margin-top: -50px;
   width: 50vw;
   min-width: 33vw;
   background-color: ${rgba('#020024', 0.96)};
@@ -20,6 +20,9 @@ const StyledUL = styled.ul`
   box-shadow: 6px 6px 8px -6px rgba(2, 0, 36, 0.96);
   color: ${(props) => props.theme.primary};
   font-size: 18px;
+  display: absolute;
+  left: 0;
+  right: 0;
 `;
 
 function Autocomplete({ searchTerm, onClick }) {
@@ -44,7 +47,7 @@ function Autocomplete({ searchTerm, onClick }) {
     <StyledUL>
       {suggestions.map((text, i) => (
         <AutocompleteItem
-          key={text}
+          key={i}
           text={text}
           searchTerm={searchTerm}
           onClick={onClick}

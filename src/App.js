@@ -2,7 +2,7 @@ import React from 'react';
 import Header from 'components/Header';
 import Container from 'components/Container';
 import SearchBar from 'components/SearchBar';
-
+import SearchResults from 'components/SearchResults';
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
       <Header />
       <Container>
         <SearchBar />
+        <SearchResults />
       </Container>
     </div>
   );

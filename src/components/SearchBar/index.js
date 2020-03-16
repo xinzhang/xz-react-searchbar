@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import screen from 'styles/helpers/media';
 import { ReactComponent as Icon } from './icons/search-icon.svg';
+import { fetchSearchMovies } from 'store/actions';
+import { connect } from 'react-redux';
 
 import AutoComplete from './Autocomplete';
 
@@ -21,10 +23,7 @@ const Wrapper = styled.div`
   align-items: center;
   z-index: 2;
   background: ${(props) => props.theme.backgroundPrimary};
-  height: ${mobileHeight};
-  ${screen.md} {
-    height: ${desktopHeight};
-  }
+  height: ${desktopHeight};
 `;
 
 const Slide = styled.div`
@@ -118,9 +117,21 @@ class SearchBar extends React.Component {
     });
   };
 
+  handleSubmitClick = () => {
+    this.setState({ showDropdown: false });
+    this.props.dispatch(fetchSearchMovies(this.state.searchValue));
+  };
+
+  handleKeyDown = (e) => {
+    console.log('keyup', e);
+    if (e.key === 'Enter') {
+      this.handleSubmitClick();
+    }
+  };
+
   render() {
     const { focused, showDropdown, searchValue } = this.state;
-    console.log('render', searchValue);
+
     return (
       <>
         <Wrapper>
@@ -144,7 +155,11 @@ class SearchBar extends React.Component {
               }
             />
           </Slide>
-          <Submit type="submit" disabled={!searchValue}>
+          <Submit
+            type="submit"
+            disabled={!searchValue}
+            onClick={this.handleSubmitClick}
+          >
             Submit
           </Submit>
         </Wrapper>
@@ -159,4 +174,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default connect()(SearchBar);

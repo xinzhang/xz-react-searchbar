@@ -18,11 +18,13 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reflexbox": "^4.0.6",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "use-react-modal": "0.0.9"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
     "react-test-render": "^1.1.2",
     "react-test-renderer": "^16.12.0"

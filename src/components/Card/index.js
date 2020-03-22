@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from 'reflexbox';
 import styled from 'styled-components';
 
 const StyledBox = styled.div`
@@ -20,11 +19,11 @@ const StyledTitle = styled.div`
   font-size: 14px;
 `;
 
-export function Card({ movie }) {
+export function Card({ movie, imdbID, onClick }) {
   const defaultUrl = 'https://via.placeholder.com/180/250';
 
   return (
-    <StyledBox>
+    <StyledBox onClick={(e) => onClick(e)}>
       <img
         src={movie.Poster === 'N/A' ? defaultUrl : movie.Poster}
         width="180px"

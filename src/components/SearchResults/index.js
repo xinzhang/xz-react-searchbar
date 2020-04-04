@@ -8,7 +8,7 @@ import { CSSTransition } from 'react-transition-group';
 import Modal from 'react-modal';
 import CloseButton from 'components/CloseButton';
 import './styles.css';
-import CloseIcon from './close-icon.svg';
+import { ReactComponent as CloseIcon } from './close-icon.svg';
 
 const StyledFlex = styled.div`
   display: flex;
@@ -29,6 +29,11 @@ export const Center = styled.div`
   align-items: center;
 `;
 
+export const StyledCloseIcon = styled(CloseIcon)`
+  width: 20px;
+  height: auto;
+`;
+
 const customStyles = {
   content: {
     top: '50%',
@@ -38,6 +43,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     background: 'transparent',
+    border: 'none',
   },
 };
 export function SearchResults({ movies, currentSearch }) {
@@ -75,7 +81,7 @@ export function SearchResults({ movies, currentSearch }) {
       </StyledFlex>
       <CSSTransition in={isOpen} timeout={500}>
         <Modal isOpen={isOpen} style={customStyles}>
-          {/* <CloseIcon onClick={() => setIsOpen(false)}></CloseIcon> */}
+          <StyledCloseIcon onClick={() => setIsOpen(false)} />
           <MovieDetail onClick={() => setIsOpen(false)} movie={item} />
         </Modal>
       </CSSTransition>

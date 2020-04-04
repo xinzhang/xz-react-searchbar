@@ -4,8 +4,11 @@ import Card from 'components/Card';
 import styled from 'styled-components';
 import { getMovieById } from 'api/omdbApi';
 import MovieDetail from 'components/MovieDetail';
-import useModal from 'use-react-modal';
+import { CSSTransition } from 'react-transition-group';
+import Modal from 'react-modal';
 import CloseButton from 'components/CloseButton';
+import './styles.css';
+import CloseIcon from './close-icon.svg';
 
 const StyledFlex = styled.div`
   display: flex;
@@ -26,12 +29,21 @@ export const Center = styled.div`
   align-items: center;
 `;
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: 'transparent',
+  },
+};
 export function SearchResults({ movies, currentSearch }) {
-  const { ref, openModal, closeModal, isOpen, Modal } = useModal({
-    background: 'rgba(120, 120, 120, 0.5)',
-  });
   const [selectedIMDB, setSelectedIMDB] = useState('');
   const [item, setItem] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const asyncFunc = async () => {
@@ -52,22 +64,21 @@ export function SearchResults({ movies, currentSearch }) {
               <Card
                 key={item.imdbID}
                 movie={item}
-                ref={ref}
-                onClick={(e) => {
+                onClick={() => {
                   setSelectedIMDB(item.imdbID);
-                  openModal(e);
+                  setIsOpen(true);
                 }}
               />
             );
           })
         )}
       </StyledFlex>
-      {isOpen && (
-        <Modal>
-          <CloseButton onClick={closeModal}></CloseButton>
-          <MovieDetail movie={item} />
+      <CSSTransition in={isOpen} timeout={500}>
+        <Modal isOpen={isOpen} style={customStyles}>
+          {/* <CloseIcon onClick={() => setIsOpen(false)}></CloseIcon> */}
+          <MovieDetail onClick={() => setIsOpen(false)} movie={item} />
         </Modal>
-      )}
+      </CSSTransition>
     </>
   );
 }

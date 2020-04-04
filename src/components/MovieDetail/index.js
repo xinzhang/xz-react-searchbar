@@ -49,9 +49,9 @@ const FieldItem = ({ field, text }) => {
   ) : null;
 };
 
-export const MovieDetail = ({ movie }) => {
+export const MovieDetail = ({ movie, onClick }) => {
   return (
-    <StyledMovieDetailWrapper>
+    <StyledMovieDetailWrapper onClick={onClick}>
       {!movie ? (
         <span> Loading ... </span>
       ) : (
